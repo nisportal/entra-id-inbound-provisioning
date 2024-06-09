@@ -10,3 +10,7 @@ The project directories are organized by the integration platform / tool that yo
 
 ## Start here
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-powershell
+
+## Emply resources
+https://help.emply.com/hc/en-us/articles/360055609472-Export-JSON-Package
+https://help.emply.com/hc/en-us/articles/8879475145117-Create-export-file-JSON-Package
