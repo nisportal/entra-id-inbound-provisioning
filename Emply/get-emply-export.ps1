@@ -3,7 +3,7 @@ param(
     [string]$customer = "nis",
     [string]$exportId = "839b99f9-3029-463d-9ee3-c12311de6a54", # Id of the Export in Emply (Integrations -> API -> Exports)
     [string]$apiKey = "",
-    [int]$timeAgoInMins = 12
+    [int]$timeAgoInMins = 600
 )
 
 function Convert-TimetoISO8601 {
@@ -93,7 +93,31 @@ function Get-EmplyExportEntity {
 
 $responseObject = Get-EmplyExports -CustomerId $customer -ExportId $exportId -ApiKey $apiKey | ConvertFrom-Json
 
+$responseArray = @()
 foreach ($item in $responseObject) {
-    $response = Get-EmplyExportEntity -baseUrl $baseUrl -customer $customer -exportId $exportId -entityId $item.id -apiKey $apiKey
-    $response
+    $response = Get-EmplyExportEntity -CustomerId $customer -ExportId $exportId -EntityId $item.id -ApiKey $apiKey | ConvertFrom-Json -Depth 4
+    $responseArray += $response
 }
+
+# Flatten the JSON structure for CSV output. Map this against the AttributeMapping.psd1 file
+$csvData = @()
+foreach ($response in $responseArray) {
+    $csvData += [PSCustomObject]@{
+        "Private E-mail"  = $response.content."Private E-mail"
+        "FirstName"      = $response.content."First name"
+        "LastName"       = $response.content."Last name"
+        "JobTitle"       = $response.content."Job Title"
+        "Manager"         = $response.content."Manager"
+        "Department"      = $response.content."Department"
+        "Country"         = $response.content."Country"
+        "PrivatePhone"    = $response.content."Phone number"
+        "EmployeeHireDate" = $response.content."Employment date"
+        "Company"          = "Nordic Insurance Software"
+    }
+}
+
+# Convert the array of custom objects to CSV and export to a file
+$csvData | Export-Csv -Path "emply-output.csv" -NoTypeInformation
+
+# output the CSV data to the console for verification
+$csvData | Format-Table -AutoSize
