@@ -14,3 +14,20 @@ https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provis
 ## Emply resources
 https://help.emply.com/hc/en-us/articles/360055609472-Export-JSON-Package
 https://help.emply.com/hc/en-us/articles/8879475145117-Create-export-file-JSON-Package
+
+https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-powershell
+https://www.christianfrohn.dk/2024/04/18/modifying-the-attribute-mapping-in-api-driven-provisioning-to-on-premises-active-directory/
+https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-powershell#generate-bulk-request-with-custom-scim-schema
+
+## Provisioning App
+### API-driven provisioning to Microsoft Entra ID
+ObjectID = 08ee8014-f2fa-4d05-860e-d1188df0cfee
+
+### Update the schema with the custom SCIM schema extension from the AttributeMapping.psd1 file
+.\CSV2SCIM.ps1 -Path '.\emply-output.csv' -UpdateSchema -ServicePrincipalId "08ee8014-f2fa-4d05-860e-d1188df0cfee" -TenantId "NordicInsuranceSoftware.onmicrosoft.com" -ScimSchemaNamespace "urn:ietf:params:scim:schemas:extension:nis:1.0:User"
+$AttributeMapping = Import-PowerShellDataFile '.\AttributeMapping.psd1'
+.\CSV2SCIM.ps1 -Path '.\emply-output.csv' -AttributeMapping $AttributeMapping -ValidateAttributeMapping
+
+### Get flat list (payload) of all csv fields under the custom SCIM schema namespace
+.\CSV2SCIM.ps1 -Path '.\emply-output.csv' -AttributeMapping $AttributeMapping -ScimSchemaNamespace "urn:ietf:params:scim:schemas:extension:nis:1.0:User"  > BulkRequestPayloadWithCustomNamespace.json
+

@@ -24,7 +24,7 @@
 # $AttributeMapping = Import-PowerShellDataFile '.\Samples\AttributeMapping.psd1'
 # .'.\src\CSV2SCIM.ps1' `
 #     -Path '.\Samples\csv-with-2-records.csv' `
-#     -ServicePrincipalId '30242ce7-13d1-4d46-9cf1-a4fe5dcee2da' `
+#     -ServicePrincipalId '08ee8014-f2fa-4d05-860e-d1188df0cfee' `
 #     -AttributeMapping $AttributeMapping `
 #     -Verbose
 # exit
@@ -34,14 +34,14 @@
 # .'.\src\CSV2SCIM.ps1' `
 #     -Path '.\Samples\csv-with-2-records.csv' `
 #     -AttributeMapping $AttributeMapping `
-#     -ServicePrincipalId '30242ce7-13d1-4d46-9cf1-a4fe5dcee2da' `
+#     -ServicePrincipalId '08ee8014-f2fa-4d05-860e-d1188df0cfee' `
 #     -ClientId '3762674d-470e-41db-9115-9f2914ccded4' -ClientCertificate (Get-ChildItem Cert:\CurrentUser\My\AF1C6C090CB75782711672DE47C55C45E407EC05) `
 #     -Verbose
 # exit
 
 ## Get Logs for Last Cycle 
-$Logs = .'.\src\CSV2SCIM.ps1' `
-    -ServicePrincipalId '30242ce7-13d1-4d46-9cf1-a4fe5dcee2da' `
+$Logs = .'.\CSV2SCIM.ps1' `
+    -ServicePrincipalId '08ee8014-f2fa-4d05-860e-d1188df0cfee' `
     -GetPreviousCycleLogs -NumberOfCycles 2 `
     -Verbose
 exit

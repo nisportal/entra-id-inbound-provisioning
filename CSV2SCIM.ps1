@@ -828,20 +828,20 @@ switch ($PSCmdlet.ParameterSetName) {
     'SendScimRequest' {
         if (Test-ScimAttributeMapping $AttributeMapping -ScimSchemaNamespace 'urn:ietf:params:scim:schemas:core:2.0:User') {
             Import-Module Microsoft.Graph.Applications -ErrorAction Stop
-            Connect-MgGraph -Identity @paramConnectMgGraph -ErrorAction Stop | Out-Null
+            Connect-MgGraph @paramConnectMgGraph -ErrorAction Stop | Out-Null
 
             Import-Csv -Path $Path | ConvertTo-ScimBulkPayload -ScimSchemaNamespace $ScimSchemaNamespace -AttributeMapping $AttributeMapping | Invoke-AzureADBulkScimRequest -ServicePrincipalId $ServicePrincipalId -ErrorAction Stop
         }
     }
     'UpdateScimSchema' {
         Import-Module Microsoft.Graph.Applications -ErrorAction Stop
-        Connect-MgGraph -Identity @paramConnectMgGraph -ErrorAction Stop | Out-Null
+        Connect-MgGraph @paramConnectMgGraph -ErrorAction Stop | Out-Null
 
         Get-Content -Path $Path -First 1 | Set-AzureADProvisioningAppSchema -ScimSchemaNamespace $ScimSchemaNamespace -ServicePrincipalId $ServicePrincipalId
     }
     'GetPreviousCycleLogs' {
         Import-Module Microsoft.Graph.Applications,Microsoft.Graph.Reports -MaximumVersion 1.99.0 -ErrorAction Stop
-        Connect-MgGraph -Identity @paramConnectMgGraph -ErrorAction Stop | Out-Null
+        Connect-MgGraph @paramConnectMgGraph -ErrorAction Stop | Out-Null
        
         Get-ProvisioningCycleIdHistory $ServicePrincipalId -NumberOfCycles $NumberOfCycles | Get-ProvisioningCycleLogs -SummarizeByChangeId -ShowCycleStatistics
     }
