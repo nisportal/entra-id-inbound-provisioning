@@ -18,6 +18,10 @@ https://help.emply.com/hc/en-us/articles/8879475145117-Create-export-file-JSON-P
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-powershell
 https://www.christianfrohn.dk/2024/04/18/modifying-the-attribute-mapping-in-api-driven-provisioning-to-on-premises-active-directory/
 https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-powershell#generate-bulk-request-with-custom-scim-schema
+https://learn.microsoft.com/en-us/entra/identity/app-provisioning/inbound-provisioning-api-faqs
+
+
+https://identity-man.eu/2023/10/25/using-the-brand-new-entra-inbound-provisioning-api-for-identity-lifecycle-management/
 
 ## Provisioning App
 ### API-driven provisioning to Microsoft Entra ID
@@ -31,3 +35,24 @@ $AttributeMapping = Import-PowerShellDataFile '.\AttributeMapping.psd1'
 ### Get flat list (payload) of all csv fields under the custom SCIM schema namespace
 .\CSV2SCIM.ps1 -Path '.\emply-output.csv' -AttributeMapping $AttributeMapping -ScimSchemaNamespace "urn:ietf:params:scim:schemas:extension:nis:1.0:User"  > BulkRequestPayloadWithCustomNamespace.json
 
+
+
+install-module Microsoft.Graph.Reports -scope AllUsers -force
+install-module Microsoft.Graph.Applications -scope AllUsers -force
+
+
+ cd G:\Github\entra-id-inbound-provisioning
+ 
+ $AttributeMapping = Import-PowerShellDataFile '.\AttributeMapping.psd1'
+ .'.\CSV2SCIM.ps1' `
+     -Path '.\emply-output.csv' `
+     -ServicePrincipalId '08ee8014-f2fa-4d05-860e-d1188df0cfee' `
+     -AttributeMapping $AttributeMapping `
+     -Verbose
+
+
+## Get Logs for Last Cycle 
+$Logs = .'.\CSV2SCIM.ps1' `
+    -ServicePrincipalId '08ee8014-f2fa-4d05-860e-d1188df0cfee' `
+    -GetPreviousCycleLogs -NumberOfCycles 2 `
+    -Verbose

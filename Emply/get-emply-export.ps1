@@ -2,8 +2,8 @@ param(
     [string]$baseUrl = "https://api.emply.com/v1",
     [string]$customer = "nis",
     [string]$exportId = "839b99f9-3029-463d-9ee3-c12311de6a54", # Id of the Export in Emply (Integrations -> API -> Exports)
-    [string]$apiKey = "",
-    [int]$timeAgoInMins = 800
+    [string]$apiKey = "9485286b6e4640dba7b398cc7f66276bd277dde59f014b01a1203364c3072424",
+    [int]$timeAgoInMins = 1000
 )
 
 function Convert-TimetoISO8601 {
@@ -106,6 +106,7 @@ foreach ($response in $responseArray) {
         "Private E-mail"   = $response.content."Private E-mail"
         "FirstName"        = $response.content."First name"
         "LastName"         = $response.content."Last name"
+        "DisplayName"      = $response.content."First name" + " " + $response.content."Last name"
         "JobTitle"         = $response.content."Job Title"
         "Manager"          = $response.content."Manager"
         "Department"       = $response.content."Department"
@@ -113,6 +114,19 @@ foreach ($response in $responseArray) {
         "PrivatePhone"     = $response.content."Phone number"
         "HireDate"         = $response.content."Employment date"
         "Company"          = "Nordic Insurance Software"
+        "WorkerStatus"     = "Active"
+        "WorkerID"         = "999"
+        "UserID"           = "uuu3"
+        "WorkerType"       = "Permanent employee"
+        "City"             = "Copenhagen"
+        "ZipCode"          = "DK-2100"
+        #"WorkerID"         = $response.content."Employee number"
+        #"UserID"           = $response.content."User ID"
+        #"WorkerType"       = $response.content."Worker type"
+        #"City"             = $response.content."City"
+        #"ZipCode"          = $response.content."Zip code"
+        # "ProxyAddresses"   = $response.content."Email"
+        # UsageLocation
     }
 }
 

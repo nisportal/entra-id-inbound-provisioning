@@ -13,7 +13,6 @@
     addresses    = @(
         @{
             type          = { 'work' }
-            streetAddress = 'StreetAddress'
             locality      = 'City'
             postalCode    = 'ZipCode'
             country       = 'CountryCode'
@@ -22,14 +21,12 @@
     phoneNumbers = @(
         @{
             type  = { 'work' }
-            value = 'OfficePhone'
+            value = 'PrivatePhone'
         }
     )
     "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" = @{
         employeeNumber = 'WorkerID'
-        costCenter     = 'CostCenter'
         organization   = 'Company'
-        division       = 'Division'
         department     = 'Department'
         manager        = @{
             value = 'ManagerID'
