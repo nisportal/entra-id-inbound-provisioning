@@ -2,7 +2,7 @@ param(
     [string]$baseUrl = "https://api.emply.com/v1",
     [string]$customer = "nis",
     [string]$exportId = "839b99f9-3029-463d-9ee3-c12311de6a54", # Id of the Export in Emply (Integrations -> API -> Exports)
-    [string]$apiKey = "9485286b6e4640dba7b398cc7f66276bd277dde59f014b01a1203364c3072424",
+    [string]$apiKey = "",
     [int]$timeAgoInMins = 1000
 )
 
