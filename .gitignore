@@ -5,6 +5,7 @@
 
 # test files
 BulkRequestPayloadWithCustomNamespace.json
+test.ps1
 
 # User-specific files
 *.rsuser

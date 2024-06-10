@@ -21,10 +21,6 @@
     )
     phoneNumbers = @(
         @{
-            type  = { 'work' }
-            value = 'OfficePhone'
-        },
-        @{
             type  = { 'mobile' }
             value = 'PrivatePhone'
         }
